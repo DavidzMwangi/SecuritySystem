@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'crispy_forms',
     'user',
     'residence',
     'case'
@@ -126,3 +127,5 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # user model
 AUTH_USER_MODEL = 'user.User'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
