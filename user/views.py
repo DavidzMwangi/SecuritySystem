@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
 # Create your views here.
-from user.forms import RegisterForm
+from user.forms import *
 from user.models import Admin
 
 
@@ -82,3 +82,12 @@ def admin_register(request):
         return redirect('welcome')
     else:
         return render(request, 'admin/register.html')
+
+
+@login_required
+def student_register(request):
+    if request.method == 'POST':
+        return redirect('welcome')
+    else:
+        form = StudentRegisterForm()
+        return render(request, 'student/register.html', {'form': form})
