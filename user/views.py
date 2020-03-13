@@ -4,6 +4,8 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
 # Create your views here.
+from django.urls import reverse
+
 from user.forms import *
 from user.models import Admin
 
@@ -13,9 +15,9 @@ def index(request):
     return render(request, 'student/dashboard.html')
 
 
-@login_required
 def user_logout(request):
     logout(request)
+    return redirect('login')
 
 
 def register_view(request):
@@ -33,7 +35,7 @@ def register_view(request):
             if (form.cleaned_data.get('user_type') == 0):
                 return redirect('admin.register')
             elif (form.cleaned_data.get('user_type') == 1):
-                return redirect('welcome')
+                return redirect('student.register')
             elif (form.cleaned_data.get('user_type') == 3):
                 return redirect('welcome')
             else:
@@ -55,7 +57,13 @@ def login_view(request):
 
         user = authenticate(username=username, password=password)
         if user:
-            return redirect('welcome')
+            if user.user_type == 0:
+                return redirect('admin.dashboard')
+
+            elif user.user_type == 1:
+                return redirect('student.dashboard')
+            else:
+                print("joijoi")
         else:
             return render(request, 'login.html', {'error': 'The user does not exist, please register'})
 
@@ -91,3 +99,11 @@ def student_register(request):
     else:
         form = StudentRegisterForm()
         return render(request, 'student/register.html', {'form': form})
+
+
+@login_required
+def student_dashboard(request):
+    if request.method == 'GET':
+        return render(request, 'student/dashboard.html')
+    else:
+        return redirect('welcome')

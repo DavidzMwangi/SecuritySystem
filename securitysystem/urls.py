@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import TemplateView
-from user.views import register_view, login_view,user_logout
+from user.views import register_view, login_view, user_logout
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('user/', include('user.urls'), name='user'),
