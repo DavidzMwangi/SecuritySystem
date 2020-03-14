@@ -20,6 +20,7 @@ from user.views import register_view, login_view, user_logout
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('user/', include('user.urls'), name='user'),
+    path('residence/', include('residence.urls'), name='residence'),
     path('', TemplateView.as_view(template_name='login.html')),
     path('register', register_view, name='register'),
     path('login', login_view, name='login'),

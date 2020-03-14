@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
 # Create your views here.
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 
 from user.forms import *
 from user.models import Admin
@@ -16,8 +16,12 @@ def index(request):
 
 
 def user_logout(request):
-    logout(request)
-    return redirect('login')
+    if request.method == "POST":
+        logout(request)
+        return render(request,'login.html')
+
+    else:
+        return reverse_lazy('login')
 
 
 def register_view(request):
@@ -35,11 +39,11 @@ def register_view(request):
             if (form.cleaned_data.get('user_type') == 0):
                 return redirect('admin.register')
             elif (form.cleaned_data.get('user_type') == 1):
-                return redirect('student.register')
-            elif (form.cleaned_data.get('user_type') == 3):
-                return redirect('welcome')
+                return reverse_lazy('student.register')
+            elif (form.cleaned_data.get('user_type') == 2):
+                return reverse_lazy('welcome')
             else:
-                return redirect('welcome')
+                return reverse_lazy('welcome')
 
 
         else:
@@ -57,6 +61,7 @@ def login_view(request):
 
         user = authenticate(username=username, password=password)
         if user:
+            login(request, user)
             if user.user_type == 0:
                 return redirect('admin.dashboard')
 
@@ -87,7 +92,7 @@ def admin_register(request):
         admin.user = current_user
         admin.save()
 
-        return redirect('welcome')
+        return reverse_lazy('welcome')
     else:
         return render(request, 'admin/register.html')
 
