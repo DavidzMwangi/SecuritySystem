@@ -21,6 +21,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('user/', include('user.urls'), name='user'),
     path('residence/', include('residence.urls'), name='residence'),
+    path('case/', include('case.urls'), name='case'),
     path('', TemplateView.as_view(template_name='login.html')),
     path('register', register_view, name='register'),
     path('login', login_view, name='login'),

@@ -2,8 +2,10 @@ from django.shortcuts import render, redirect
 
 # Create your views here.
 from django.urls import reverse_lazy
+from django.views.generic import ListView
 
 from residence.forms import ResidenceRegistrationForms
+from residence.models import Residence
 
 
 def residence_create(request):
@@ -22,3 +24,8 @@ def residence_create(request):
 
 def residence_dashboard(request):
     return render(request, 'dashboard.html')
+
+class ResidencesView(ListView):
+    template_name = 'all_residence.html'
+    def get_queryset(self):
+        return Residence.objects.all()
