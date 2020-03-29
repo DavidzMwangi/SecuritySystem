@@ -39,8 +39,17 @@ def newCase(request):
     else:
         form = CaseForm()
         return render(request, 'new_case.html', {'form': form})
+
+
 class CaseView(ListView):
     template_name = 'all_cases.html'
 
     def get_queryset(self):
         return Case.objects.all()
+
+
+class UserCasesView(ListView):
+    template_name = 'all_cases.html'
+
+    def get_queryset(self):
+        return Case.objects.filter(user=self.request.user)

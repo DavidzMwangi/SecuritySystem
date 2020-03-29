@@ -21,7 +21,7 @@ class RegisterForm(UserCreationForm):
         model = User
         fields = ('username', 'email', 'password1', 'password2','phone_no','address','user_type')
 
-class StudentRegisterForm(forms.Form):
+class StudentRegisterForm(forms.ModelForm):
     course = forms.CharField(label='Course', max_length=100)
     reg_no = forms.CharField(label='Registration Number', max_length=50)
     year_of_study = forms.CharField(label='Year Of Study', max_length=30)
