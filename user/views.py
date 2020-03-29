@@ -39,7 +39,7 @@ def register_view(request):
             if (form.cleaned_data.get('user_type') == 0):
                 return redirect('admin.register')
             elif (form.cleaned_data.get('user_type') == 1):
-                return reverse_lazy('student.register')
+                return redirect('student.register')
             elif (form.cleaned_data.get('user_type') == 2):
                 return reverse_lazy('welcome')
             else:
@@ -47,6 +47,7 @@ def register_view(request):
 
 
         else:
+            print("error")
             print(form.errors)
 
     else:
@@ -100,6 +101,12 @@ def admin_register(request):
 @login_required
 def student_register(request):
     if request.method == 'POST':
+        form = StudentRegisterForm(request.POST)
+        if form.is_valid():
+            new_student = form.save(commit=False)
+            new_student.user = request.user
+            new_student.save()
+
         return redirect('welcome')
     else:
         form = StudentRegisterForm()

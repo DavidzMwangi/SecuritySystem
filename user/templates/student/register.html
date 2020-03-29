@@ -20,9 +20,24 @@
                                             {% endif %}
 
 
-                                            <div class="form-group"><label class="small mb-1" for="inputEmailAddress">Access Level</label>
-                                                <input class="form-control py-4" id="inputEmailAddress" name="access_level" type="number" placeholder="Enter Access Level" />
+                                        <div class="row">
+                                             <div class="form-group col-sm-6">
+                                                {{ form.reg_no|as_crispy_field }}
                                             </div>
+                                             <div class="form-group col-sm-6">
+                                                {{ form.course|as_crispy_field }}
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                             <div class="form-group col-sm-6">
+                                                {{ form.residence|as_crispy_field }}
+                                            </div>
+                                             <div class="form-group col-sm-6">
+                                                {{ form.year_of_study|as_crispy_field }}
+                                            </div>
+                                        </div>
+
 
 
                                             <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0"><button class="btn btn-primary" type="submit" >Login</button></div>
